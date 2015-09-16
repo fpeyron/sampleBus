@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>util-rabbitmq</module>
+        <module>interface-partner</module>
     </modules>
 
     <packaging>pom</packaging>
