@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="fr.boursorama.bus.common" slot="${project.version}">
+    <resources>
+        <resource-root path="amqp-client-3.3.4.jar" />
+        <resource-root path="annotations-2.0.1.jar" />
+        <resource-root path="aopalliance-1.0.jar" />
+        <resource-root path="asm-3.3.1.jar" />
+        <resource-root path="camel-core-2.15.2.jar" />
+        <resource-root path="camel-cxf-2.15.2.jar" />
+        <resource-root path="camel-cxf-transport-2.15.2.jar" />
+        <resource-root path="camel-http-2.15.2.jar" />
+        <resource-root path="camel-jackson-2.15.2.jar" />
+        <resource-root path="camel-rabbitmq-2.15.2.RC1.jar" />
+        <resource-root path="camel-servlet-2.15.2.jar" />
+        <resource-root path="camel-spring-2.15.2.jar" />
+        <resource-root path="camel-swagger-2.15.2.jar" />
+        <resource-root path="camel-saxon-2.15.2.jar" />
+        <resource-root path="commons-codec-1.10.jar" />
+        <resource-root path="commons-httpclient-3.1.jar" />
+        <resource-root path="commons-logging-1.2.jar" />
+        <resource-root path="commons-pool-1.6.jar" />
+        <resource-root path="cxf-rt-bindings-soap-3.0.4.jar" />
+        <resource-root path="cxf-rt-bindings-xml-3.0.4.jar" />
+        <resource-root path="cxf-rt-databinding-jaxb-3.0.4.jar" />
+        <resource-root path="cxf-rt-features-clustering-3.0.4.jar" />
+        <resource-root path="cxf-rt-frontend-jaxrs-3.0.4.jar" />
+        <resource-root path="cxf-rt-frontend-jaxws-3.0.4.jar" />
+        <resource-root path="cxf-rt-frontend-simple-3.0.4.jar" />
+        <resource-root path="cxf-rt-rs-client-3.0.4.jar" />
+        <resource-root path="cxf-rt-rs-security-oauth-3.0.4.jar" />
+        <resource-root path="cxf-rt-transports-http-3.0.4.jar" />
+        <resource-root path="cxf-rt-ws-addr-3.0.4.jar" />
+        <resource-root path="cxf-rt-ws-policy-3.0.4.jar" />
+        <resource-root path="cxf-rt-wsdl-3.0.4.jar" />
+        <resource-root path="guava-15.0.jar" />
+        <resource-root path="jackson-annotations-2.4.0.jar" />
+        <resource-root path="jackson-core-2.4.3.jar" />
+        <resource-root path="jackson-databind-2.4.3.jar" />
+        <resource-root path="jackson-jaxrs-base-2.4.1.jar" />
+        <resource-root path="jackson-jaxrs-json-provider-2.4.1.jar" />
+        <resource-root path="jackson-module-jaxb-annotations-2.4.3.jar" />
+        <resource-root path="jackson-module-jsonSchema-2.4.1.jar" />
+        <resource-root path="jackson-module-scala_2.10-2.4.1.jar" />
+        <resource-root path="javassist-3.18.2-GA.jar" />
+        <resource-root path="javax.annotation-api-1.2.jar" />
+        <resource-root path="javax.ws.rs-api-2.0.1.jar" />
+        <resource-root path="jaxb-core-2.2.11.jar" />
+        <resource-root path="jaxb-impl-2.2.11.jar" />
+        <resource-root path="joda-convert-1.6.jar" />
+        <resource-root path="joda-time-2.3.jar" />
+        <resource-root path="json4s-ast_2.10-3.2.11.jar" />
+        <resource-root path="json4s-core_2.10-3.2.11.jar" />
+        <resource-root path="json4s-ext_2.10-3.2.11.jar" />
+        <resource-root path="json4s-jackson_2.10-3.2.11.jar" />
+        <resource-root path="json4s-native_2.10-3.2.11.jar" />
+        <resource-root path="jsr305-2.0.1.jar" />
+        <resource-root path="jsr311-api-1.1.1.jar" />
+        <resource-root path="neethi-3.0.3.jar" />
+        <resource-root path="oauth-20100527.jar" />
+        <resource-root path="oauth-provider-20100527.jar" />
+        <resource-root path="paranamer-2.6.jar" />
+        <resource-root path="reflections-0.9.9.jar" />
+        <resource-root path="Saxon-HE-9.5.1-5.jar" />
+        <resource-root path="scala-compiler-2.11.7.jar" />
+        <resource-root path="scala-library-2.11.7.jar" />
+        <resource-root path="scala-parser-combinators_2.11-1.0.4.jar" />
+        <resource-root path="scala-reflect-2.11.7.jar" />
+        <resource-root path="scala-xml_2.11-1.0.4.jar" />
+        <resource-root path="scalap-2.10.0.jar" />
+        <resource-root path="slf4j-api-1.6.6.jar" />
+        <resource-root path="spring-aop-4.1.6.RELEASE.jar" />
+        <resource-root path="spring-beans-4.1.6.RELEASE.jar" />
+        <resource-root path="spring-context-4.1.6.RELEASE.jar" />
+        <resource-root path="spring-core-4.1.6.RELEASE.jar" />
+        <resource-root path="spring-expression-4.1.6.RELEASE.jar" />
+        <resource-root path="spring-tx-4.1.6.RELEASE.jar" />
+        <resource-root path="spring-web-4.1.6.RELEASE.jar" />
+        <resource-root path="swagger-annotations-1.3.12.jar" />
+        <resource-root path="swagger-core_2.10-1.3.12.jar" />
+        <resource-root path="swagger-jaxrs_2.10-1.3.12.jar" />
+        <resource-root path="swagger-servlet_2.10-1.3.12.jar" />
+        <resource-root path="wsdl4j-1.6.3.jar" />
+        <resource-root path="xml-resolver-1.2.jar" />
+
+        <resource-root path="cxf-core-3.0.4.jar" />
+        <resource-root path="woodstox-core-asl-4.4.1.jar" />
+        <resource-root path="stax2-api-3.1.4.jar" />
+        <resource-root path="xmlschema-core-2.2.1.jar" />
+    </resources>
+
+    <dependencies>
+        <module name="sun.jdk" export="true" >
+            <imports>
+                <include path="sun/misc/Unsafe" />
+            </imports>
+        </module>
+        <module name="javax.api" />
+        <module name="javax.annotation.api" />
+        <module name="javax.servlet.api" />
+        <module name="javax.servlet.jsp.api" />
+        <module name="javax.validation.api" />
+        <module name="javax.xml.ws.api" />
+        <module name="javax.transaction.api" />
+        <module name="javax.mail.api" />
+        <module name="javax.jws.api" />
+        <module name="org.slf4j" />
+        <module name="org.apache.commons.logging" />
+        <module name="org.jboss.logging" />
+        <module name="org.apache.log4j" />
+
+        <module name="org.jboss.vfs" />
+    </dependencies>
+</module>
