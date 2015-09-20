@@ -9,9 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>fr.sysf.sample.bus.util</groupId>
+    <groupId>fr.boursorama.bus.util</groupId>
     <artifactId>bus-util-rabbitmq</artifactId>
     <name>bus :: util :: rabbitmq</name>
-
 
 </project>

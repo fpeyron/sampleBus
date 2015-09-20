@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>fr.sysf.sample.bus</groupId>
     <artifactId>bus-interface-partner</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-  
-     <dependencies>
+
+    <name>bus :: interface :: partner</name>
+
+    <dependencies>
         <dependency>
-          <groupId>fr.sysf.sample.bus.util</groupId>
-    		<artifactId>bus-util-rabbitmq</artifactId>
+            <groupId>fr.boursorama.bus.util</groupId>
+            <artifactId>bus-common-lib</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>runtime</scope>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>fr.boursorama.bus.util</groupId>
+            <artifactId>bus-util-rabbitmq</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
-  
+
 </project>
