@@ -1,4 +1,4 @@
-package fr.sysf.bus.util.broker;
+package fr.boursorama.bus.util.broker;
 
 /**
  * Created by florent on 31/08/15.
