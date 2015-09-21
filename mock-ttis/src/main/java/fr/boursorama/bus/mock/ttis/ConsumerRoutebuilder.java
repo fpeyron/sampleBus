@@ -13,7 +13,7 @@ public class ConsumerRoutebuilder extends RouteBuilder {
     public void configure() throws Exception {
 
         from("cxf:bean:ttis.SMPCardServices")
-                .to("log:ttis.SMPCardServices.input?level=INFO&showBody=true")
+                .to("log:ttis.SMPCardServices.input?level=INFO&showBody=true&showHeaders=true")
                 .transform().xpath("//messageSMPAllerXML/*")
                 .convertBodyTo(String.class)
                 .to("validator:xsd/CSD002Aller.xsd")

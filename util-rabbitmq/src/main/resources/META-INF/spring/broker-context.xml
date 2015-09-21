@@ -6,10 +6,11 @@
     ">
 
     <bean id="customConnectionFactory" class="com.rabbitmq.client.ConnectionFactory">
-        <property name="host" value="localhost"/>
+        <property name="host" value="${rabbitmq.host:localhost}"/>
         <property name="port" value="5672"/>
         <property name="username" value="guest"/>
         <property name="password" value="guest"/>
+        <property name="virtualHost" value="/" />
         <property name="automaticRecoveryEnabled" value="true" />
     </bean>
 
