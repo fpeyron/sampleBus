@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>fr.boursoram.bus</groupId>
+    <groupId>fr.boursorama.bus</groupId>
     <artifactId>bus-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>camel-rabbitmq</module>
         <module>util-rabbitmq</module>
-        <module>common-lib</module>
+        <module>common-libs</module>
         <module>interface-partner</module>
         <module>mock-ttis</module>
     </modules>
@@ -24,7 +24,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.7</java.version>
     </properties>
-
 
     <build>
         <plugins>
