@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="http://generic.monetiq.evolan.sopra.com/"
+             xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="SMPCardServices"
+             targetNamespace="http://generic.monetiq.evolan.sopra.com/">
+
+    <types>
+        <xsd:schema attributeFormDefault="unqualified" elementFormDefault="unqualified"
+                    targetNamespace="http://generic.monetiq.evolan.sopra.com/">
+
+            <xsd:element name="activer" type="tns:activer"/>
+            <xsd:element name="activerResponse" type="tns:activerResponse"/>
+
+            <xsd:complexType name="activer">
+                <xsd:sequence>
+                    <xsd:element name="messageSMPAllerXML" minOccurs="1" maxOccurs="1">
+                        <xsd:complexType>
+                            <xsd:sequence minOccurs="1" maxOccurs="1">
+                                <xsd:any maxOccurs="1" minOccurs="1" processContents="lax"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="activerResponse">
+                <xsd:sequence>
+                    <xsd:element name="messageSMPRetourXML" minOccurs="1" maxOccurs="1">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:any maxOccurs="1" minOccurs="1" processContents="lax"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+
+        </xsd:schema>
+    </types>
+    <message name="activer">
+        <part element="tns:activer" name="parameters">
+        </part>
+    </message>
+    <message name="activerResponse">
+        <part element="tns:activerResponse" name="parameters">
+        </part>
+    </message>
+
+    <portType name="SMPEvolanFacadeDelegate">
+        <operation name="activer">
+            <input message="tns:activer"
+                   wsam:Action="http://generic.monetiq.evolan.sopra.com/SMPEvolanFacadeDelegate/activerRequest"/>
+            <output message="tns:activerResponse"
+                    wsam:Action="http://generic.monetiq.evolan.sopra.com/SMPEvolanFacadeDelegate/activerResponse"/>
+        </operation>
+    </portType>
+    <binding name="SMPEvolanPortBinding" type="tns:SMPEvolanFacadeDelegate">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="activer">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body namespace="http://generic.monetiq.evolan.sopra.com/" use="literal"/>
+            </input>
+            <output>
+                <soap:body namespace="http://generic.monetiq.evolan.sopra.com/" use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="SMPCardServices">
+        <port binding="tns:SMPEvolanPortBinding" name="SMPEvolanPort">
+            <soap:address location="http://localhost:7001/SMWeb/services/SMPCardServices"/>
+        </port>
+    </service>
+
+</definitions>
