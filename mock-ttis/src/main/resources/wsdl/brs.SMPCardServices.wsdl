@@ -12,7 +12,7 @@
                     targetNamespace="http://generic.ttis.bus.boursorama.fr/">
 
             <xsd:element name="notifier" type="tns:notifier"/>
-            <xsd:element name="activerResponse" type="tns:activerResponse"/>
+            <xsd:element name="notifierResponse" type="tns:notifierResponse"/>
 
             <xsd:complexType name="notifier">
                 <xsd:sequence>
@@ -26,12 +26,12 @@
 
                 </xsd:sequence>
             </xsd:complexType>
-            <xsd:complexType name="activerResponse">
+            <xsd:complexType name="notifierResponse">
                 <xsd:sequence>
-                    <xsd:element name="messageSMPRetourXML" minOccurs="1" maxOccurs="1">
+                    <xsd:element name="messageSMPRetourXML" minOccurs="0" maxOccurs="1">
                         <xsd:complexType>
                             <xsd:sequence>
-                                <xsd:any maxOccurs="1" minOccurs="1" processContents="lax"/>
+                                <xsd:any maxOccurs="1" minOccurs="0" processContents="lax"/>
                             </xsd:sequence>
                         </xsd:complexType>
                     </xsd:element>
@@ -44,8 +44,8 @@
         <part element="tns:notifier" name="parameters">
         </part>
     </message>
-    <message name="activerResponse">
-        <part element="tns:activerResponse" name="parameters">
+    <message name="notifierResponse">
+        <part element="tns:notifierResponse" name="parameters">
         </part>
     </message>
 
@@ -53,8 +53,8 @@
         <operation name="notifier">
             <input message="tns:notifier"
                    wsam:Action="http://generic.ttis.bus.boursorama.fr/SMPEvolanFacadeDelegate/notifierRequest"/>
-            <output message="tns:activerResponse"
-                    wsam:Action="http://generic.ttis.bus.boursoram.fr/SMPEvolanFacadeDelegate/activerResponse"/>
+            <output message="tns:notifierResponse"
+                    wsam:Action="http://generic.ttis.bus.boursoram.fr/SMPEvolanFacadeDelegate/notifierResponse"/>
         </operation>
     </portType>
     <binding name="SMPEvolanPortBinding" type="tns:SMPEvolanFacadeDelegate">
