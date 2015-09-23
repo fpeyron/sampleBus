@@ -21,5 +21,19 @@
         </cxf:properties>
     </cxf:cxfEndpoint>
 
+    <cxf:cxfEndpoint id="brs.SMPCardServices"
+                     address="http://localhost:8080/boursorama-mock-bus/soap/ttis.SMPCardServices"
+                     wsdlURL="wsdl/brs.SMPCardServices.wsdl"
+                     endpointName="ref:SMPEvolanPort"
+                     serviceName="ref:SMPCardServices"
+                     xmlns:ref="http://generic.ttis.bus.boursorama.fr/">
+        <cxf:properties>
+            <entry key="dataFormat" value="PAYLOAD"/>
+            <entry key="setDefaultBus" value="true"/>
+            <entry key="schema-validation-enabled" value="true"/>
+            <entry key="faultStackTraceEnabled" value="true"/>
+        </cxf:properties>
+    </cxf:cxfEndpoint>
+
 
 </beans>

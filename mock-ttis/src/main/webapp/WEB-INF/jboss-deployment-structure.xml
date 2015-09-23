@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<deployment>
-		<exclusions>
-			<module name="org.apache.cxf" />
-			<module name="org.apache.neethi" />
-			<module name="org.hibernate.commons-annotations" />
-			<module name="org.hibernate.envers" />
-			<module name="org.hibernate.main" />
-			<module name="org.hibernate.validator" />
-		</exclusions>
-		<dependencies>
-			<!--
-			<module name="fr.boursorama.bus.common" slot="1.0-SNAPSHOT">
-				<imports>
-					<include path="META-INF**" />
-					<include path="org**" />
-				</imports>
-			</module>
-			-->
+        <exclusions>
+            <module name="org.apache.cxf" />
+            <module name="org.apache.neethi" />
+            <module name="org.hibernate.commons-annotations" />
+            <module name="org.hibernate.envers" />
+            <module name="org.hibernate.main" />
+            <module name="org.hibernate.validator" />
+        </exclusions>
+
+        <dependencies>
+<!--
+            <module name="fr.boursorama.bus.common" slot="1.0-SNAPSHOT">
+                <imports>
+                    <include path="META-INF**" />
+                    <include path="org**" />
+                </imports>
+            </module>
                 <module name="sun.jdk" export="true" >
                     <imports>
                         <include path="sun/misc/Unsafe" />
@@ -38,7 +38,8 @@
                 <module name="org.apache.log4j" />
 
                 <module name="org.jboss.vfs" />
-
+-->
         </dependencies>
+
 	</deployment>
 </jboss-deployment-structure>
