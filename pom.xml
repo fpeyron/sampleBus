@@ -13,6 +13,7 @@
         <module>common-libs</module>
         <module>interface-partner</module>
         <module>mock-ttis</module>
+        <module>interface-ttis</module>
     </modules>
 
     <packaging>pom</packaging>
