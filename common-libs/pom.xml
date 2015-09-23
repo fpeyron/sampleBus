@@ -166,6 +166,12 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-swagger</artifactId>
             <!-- <scope>runtime</scope> -->
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
