@@ -8,7 +8,7 @@
 
 
     <cxf:cxfEndpoint id="ttis.SMPCardServices"
-                     address="/ttis.SMPCardServices"
+                     address="http://localhost:8080/boursorama-mock-ttis/soap/ttis.SMPCardServices"
                      wsdlURL="wsdl/ttis.SMPCardServices.wsdl"
                      endpointName="ref:SMPEvolanPort"
                      serviceName="ref:SMPCardServices"
