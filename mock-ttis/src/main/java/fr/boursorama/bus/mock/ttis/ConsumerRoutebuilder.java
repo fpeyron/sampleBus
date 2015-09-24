@@ -17,27 +17,32 @@ public class ConsumerRoutebuilder extends RouteBuilder {
     public void configure() throws Exception {
 
         from("cxf:bean:ttis.SMPCardServices")
-                //.to("log:ttis.SMPCardServices.input?level=INFO&showBody=true")
+                .to("log:ttis.SMPCardServices.input?level=INFO&showBody=true")
                 .transform().xpath("//messageSMPAllerXML/*")
                 .convertBodyTo(String.class)
                 .to("validator:xsd/CSD002Aller.xsd")
                 .to(ExchangePattern.InOnly, "seda:response")
                 .to("xslt:xsl/ttisMock.xsl")
-                //.to("log:ttis.SMPCardServices.output?level=INFO&showBody=true")
+                //.transform().constant("<gen:activerResponse xmlns:gen=\"http://generic.monetiq.evolan.sopra.com/\"><messageSMPRetourXML /></gen:activerResponse>")
+                .to("log:ttis.SMPCardServices.output?level=INFO&showBody=true")
         ;
 
         from("seda:response")
                 .to("xslt:xsl/brsMock.xsl")
                 .removeHeaders("*", "callback.*")
                 .choice()
-                    .when(header("callback.url"))
+                    .when(simple("${header.callback.url}"))
                     .setHeader(Exchange.DESTINATION_OVERRIDE_URL).simple("${in.header.callback.url}")
+                    .endChoice()
+                    .otherwise()
                 .end()
                 .choice()
-                    .when(header("callback.sleep"))
+                    .when(simple("${header.callback.sleep}"))
                     .delay().simple("${in.header.callback.sleep}")
+                    .endChoice()
+                    .otherwise()
                 .end()
-                .to("cxf:bean:brs.SMPCardServices")
+                .to(ExchangePattern.InOut, "cxf:bean:brs.SMPCardServices")
         ;
     }
 }

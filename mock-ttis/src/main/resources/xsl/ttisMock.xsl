@@ -7,6 +7,7 @@
             <messageSMPRetourXML>
                 <CSA002Retour>
                     <xsl:element name="serviceMetierPublicRetour">
+                        <!--
                         <xsl:element name="codRetour">
                             <xsl:text>OK</xsl:text>
                         </xsl:element>
@@ -16,6 +17,7 @@
                         <xsl:element name="tempsReponse">
                             <xsl:text>26</xsl:text>
                         </xsl:element>
+                        -->
                     </xsl:element>
                 </CSA002Retour>
             </messageSMPRetourXML>

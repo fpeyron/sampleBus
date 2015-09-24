@@ -22,7 +22,7 @@
     </cxf:cxfEndpoint>
 
     <cxf:cxfEndpoint id="brs.SMPCardServices"
-                     address="http://localhost:8080/boursorama-mock-bus/soap/ttis.SMPCardServices"
+                     address="http://localhost:8080/boursorama-bus-ttis/soap/brs.SMPCardServices"
                      wsdlURL="wsdl/brs.SMPCardServices.wsdl"
                      endpointName="ref:SMPEvolanPort"
                      serviceName="ref:SMPCardServices"
