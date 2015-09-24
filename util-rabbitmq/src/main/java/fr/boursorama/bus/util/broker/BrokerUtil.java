@@ -11,4 +11,12 @@ public class BrokerUtil {
                 "?connectionFactory=#customConnectionFactory" +
                 "&queue=%s", exchangeName, exchangeName);
     }
+
+    public static String producer(String exchangeName) {
+
+        return String.format("rabbitmq://host/%s" +
+                "?connectionFactory=#customConnectionFactory" +
+                "&queue=%s", exchangeName, exchangeName);
+    }
+
 }
