@@ -16,10 +16,9 @@
 		</property>
 	</bean>
 
-	<context:component-scan base-package="fr.boursorama.bus.ttis" />
+	<context:component-scan base-package="fr.boursorama.bus.service" />
 
     <camel:camelContext id="ttisContext" streamCache="true">
-		<camel:routeBuilder ref="consumerRoutebuilder" />
 		<camel:routeBuilder ref="providerRoutebuilder" />
 	</camel:camelContext>
 

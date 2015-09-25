@@ -1,8 +1,6 @@
 package fr.boursorama.bus.ttis;
 
 import fr.boursorama.bus.util.broker.BrokerUtil;
-import org.apache.camel.ExchangePattern;
-import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
 
@@ -17,9 +15,9 @@ public class ConsumerRoutebuilder extends RouteBuilder {
     public void configure() throws Exception {
 
         from(BrokerUtil.consumer("ttis.consumer"))
-                .to("log:brs.call.SMPCardServices.input?level=INFO&showBody=true")
-                //.setHeader("messageType").xpath("local-name(/*[1])", String.class)
-                //.to("validator:xsd/CSD002Aller.xsd")
+                .to("log:bus.interface.ttis.SMPCardServices.input?level=INFO&showBody=true")
+                        //.setHeader("messageType").xpath("local-name(/*[1])", String.class)
+                        //.to("validator:xsd/CSD002Aller.xsd")
                 .setBody().constant("<gen:activer xmlns:gen=\"http://generic.monetiq.evolan.sopra.com/\">\n" +
                 "         <messageSMPAllerXML>\n" +
                 "            <CSD002Aller>\n" +
@@ -39,22 +37,7 @@ public class ConsumerRoutebuilder extends RouteBuilder {
                 "         </messageSMPAllerXML>\n" +
                 "      </gen:activer>")
                 .to("cxf:bean:ttis.SMPCardServices")
-                .to("log:brs.call.SMPCardServices.output?level=INFO&showBody=true")
-        ;
-
-        from("cxf:bean:brs.SMPCardServices")
-                .to("log:brs.SMPCardServices.input?level=INFO&showBody=true")
-                .transform().xpath("//messageSMPAllerXML/*")
-                .convertBodyTo(String.class)
-                .setHeader("messageType").xpath("local-name(/*[1])", String.class)
-                .setHeader("messageVersion").xpath("local-name(/*[1]/serviceMetierPublicRetour/version/text())", String.class)
-                //.log(LoggingLevel.INFO,"${header.messageType} ${header.messageVersion}")
-                .to("validator:xsd/CSD002Retour.xsd")
-                        //.to("xslt:xsl/brsMock.xsl")
-                        //.convertBodyTo(String.class)
-                .to(ExchangePattern.InOnly, BrokerUtil.producer("ttis.producer"))
-                .transform().constant("<gen:notifierResponse xmlns:gen=\"http://generic.ttis.bus.boursorama.fr/\"><messageSMPRetourXML /></gen:notifierResponse>")
-                .to("log:brs.SMPCardServices.output?level=INFO&showBody=true")
+                .to("log:bus.interface.ttis.SMPCardServices.output?level=INFO&showBody=true")
         ;
 
     }

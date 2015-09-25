@@ -11,9 +11,10 @@
         <module>camel-rabbitmq</module>
         <module>util-rabbitmq</module>
         <module>common-libs</module>
-        <module>interface-partner</module>
         <module>mock-ttis</module>
         <module>interface-ttis</module>
+        <module>interface-cis</module>
+        <module>service-monetiq</module>
     </modules>
 
     <packaging>pom</packaging>
