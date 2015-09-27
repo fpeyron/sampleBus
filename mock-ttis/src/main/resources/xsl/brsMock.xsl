@@ -8,15 +8,11 @@
             <messageSMPAllerXML>
                 <CSD002Retour>
                     <xsl:element name="serviceMetierPublicRetour">
-                        <xsl:element name="codRetour">
-                            <xsl:text>OK</xsl:text>
-                        </xsl:element>
+                        <xsl:element name="codRetour">OK</xsl:element>
                         <xsl:element name="refExtDemSMP">
-                            <xsl:value-of select="//refExtDemSMP/text()" />
+                            <xsl:value-of select="//refExtEmetteur/text()" />
                         </xsl:element>
-                        <xsl:element name="tempsReponse">
-                            <xsl:text>26</xsl:text>
-                        </xsl:element>
+                        <xsl:element name="tempsReponse">26</xsl:element>
                     </xsl:element>
                 </CSD002Retour>
             </messageSMPAllerXML>
