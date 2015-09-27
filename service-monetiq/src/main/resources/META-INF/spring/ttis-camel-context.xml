@@ -16,11 +16,11 @@
 		</property>
 	</bean>
 
-	<context:component-scan base-package="fr.boursorama.bus.service" />
+	<context:component-scan base-package="fr.boursorama.bus.ttis" />
 
     <camel:camelContext id="ttisContext" streamCache="true">
-		<camel:routeBuilder ref="providerRoutebuilder" />
+        <camel:routeBuilder ref="ttisProviderRoutebuilder" />
+        <camel:routeBuilder ref="ttisConsumerRoutebuilder" />
 	</camel:camelContext>
-
-
+	
 </beans>

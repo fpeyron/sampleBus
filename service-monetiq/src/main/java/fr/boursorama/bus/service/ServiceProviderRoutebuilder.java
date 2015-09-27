@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * Created by florent on 25/09/15.
  */
 @Component
-public class ProviderRoutebuilder extends RouteBuilder {
+public class ServiceProviderRoutebuilder extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
