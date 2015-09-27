@@ -23,7 +23,6 @@ public class ConsumerRoutebuilder extends RouteBuilder {
                 .to("validator:xsd/CSD002Aller.xsd")
                 .to(ExchangePattern.InOnly, "seda:response")
                 .to("xslt:xsl/ttisMock.xsl")
-                //.transform().constant("<gen:activerResponse xmlns:gen=\"http://generic.monetiq.evolan.sopra.com/\"><messageSMPRetourXML /></gen:activerResponse>")
                 .to("log:ttis.SMPCardServices.output?level=INFO&showBody=true")
         ;
 
