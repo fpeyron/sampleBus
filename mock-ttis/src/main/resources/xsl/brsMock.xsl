@@ -5,7 +5,7 @@
     <xsl:template match="/CSD002Aller">
         <gen:notifier xmlns:gen="http://generic.ttis.bus.boursorama.fr/">
             <messageSMPAllerXML>
-                <CSA002Retour>
+                <CSD002Retour>
                     <xsl:element name="serviceMetierPublicRetour">
                         <xsl:element name="codRetour">
                             <xsl:text>OK</xsl:text>
@@ -17,7 +17,7 @@
                             <xsl:text>26</xsl:text>
                         </xsl:element>
                     </xsl:element>
-                </CSA002Retour>
+                </CSD002Retour>
             </messageSMPAllerXML>
         </gen:notifier>
     </xsl:template>

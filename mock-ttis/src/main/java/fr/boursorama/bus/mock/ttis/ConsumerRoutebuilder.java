@@ -32,6 +32,7 @@ public class ConsumerRoutebuilder extends RouteBuilder {
                 .removeHeaders("*", "callback.*")
                 .choice()
                     .when(simple("${header.callback.url}"))
+                    .log(LoggingLevel.INFO, "${header.callback.url}")
                     .setHeader(Exchange.DESTINATION_OVERRIDE_URL).simple("${in.header.callback.url}")
                     .endChoice()
                     .otherwise()

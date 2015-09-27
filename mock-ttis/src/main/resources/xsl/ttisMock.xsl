@@ -5,7 +5,7 @@
     <xsl:template match="/CSD002Aller">
         <gen:activerResponse xmlns:gen="http://generic.monetiq.evolan.sopra.com/">
             <messageSMPRetourXML>
-                <CSA002Retour>
+                <CSD002Retour>
                     <xsl:element name="serviceMetierPublicRetour">
                         <!--
                         <xsl:element name="codRetour">
@@ -19,7 +19,7 @@
                         </xsl:element>
                         -->
                     </xsl:element>
-                </CSA002Retour>
+                </CSD002Retour>
             </messageSMPRetourXML>
         </gen:activerResponse>
     </xsl:template>
