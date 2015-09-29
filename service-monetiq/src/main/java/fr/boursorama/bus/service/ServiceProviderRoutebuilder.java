@@ -1,5 +1,7 @@
 package fr.boursorama.bus.service;
 
+import fr.boursorama.bus.util.broker.BrokerUtil;
+import org.apache.camel.ExchangePattern;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
@@ -22,6 +24,9 @@ public class ServiceProviderRoutebuilder extends RouteBuilder {
                 .get("/hello")
                 .description("A dummy call")
                 .to("direct:helloService")
+                .post("/ttis")
+                .description("test ttis")
+                .to("direct:callTtis")
         ;
 
 
@@ -30,6 +35,9 @@ public class ServiceProviderRoutebuilder extends RouteBuilder {
                 .setBody(constant("bye"))
         ;
 
+        from("direct:callTtis")
+                .to(ExchangePattern.InOnly, BrokerUtil.producer("ttis.consumer"))
+        ;
 
     }
 }

@@ -15,13 +15,13 @@
 			</list>
 		</property>
 	</bean>
-
+<!--
 	<context:component-scan base-package="fr.boursorama.bus.ttis" />
 
     <camel:camelContext id="ttisContext" streamCache="true">
 		<camel:routeBuilder ref="consumerRoutebuilder" />
 		<camel:routeBuilder ref="providerRoutebuilder" />
 	</camel:camelContext>
-
+-->
 
 </beans>

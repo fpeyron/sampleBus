@@ -17,13 +17,13 @@ public class ConsumerRoutebuilder extends RouteBuilder {
     public void configure() throws Exception {
 
         from("cxf:bean:ttis.SMPCardServices")
-                .to("log:ttis.SMPCardServices.input?level=INFO&showBody=true")
+                .to("log:ttis.SMPCardServices.input?level=DEBUG&showBody=true")
                 .transform().xpath("//messageSMPAllerXML/*")
                 .convertBodyTo(String.class)
                 .to("validator:xsd/CSD002Aller.xsd")
                 .to(ExchangePattern.InOnly, "seda:response")
                 .to("xslt:xsl/ttisMock.xsl")
-                .to("log:ttis.SMPCardServices.output?level=INFO&showBody=true")
+                .to("log:ttis.SMPCardServices.output?level=DEBUG&showBody=true")
         ;
 
         from("seda:response")
@@ -31,7 +31,7 @@ public class ConsumerRoutebuilder extends RouteBuilder {
                 .removeHeaders("*", "callback.*")
                 .choice()
                     .when(simple("${header.callback.url}"))
-                    .log(LoggingLevel.INFO, "${header.callback.url}")
+                    .log(LoggingLevel.DEBUG, "${header.callback.url}")
                     .setHeader(Exchange.DESTINATION_OVERRIDE_URL).simple("${in.header.callback.url}")
                     .endChoice()
                     .otherwise()

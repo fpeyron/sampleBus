@@ -14,7 +14,8 @@ public class ConsumerRoutebuilder extends RouteBuilder {
     @Override
     public void configure() throws Exception {
 
-        from(BrokerUtil.consumer("ttis.consumer"))
+        /*
+            from(BrokerUtil.consumer("ttis.consumer"))
                 .to("log:bus.interface.ttis.SMPCardServices.input?level=INFO&showBody=true")
                         //.setHeader("messageType").xpath("local-name(/*[1])", String.class)
                         //.to("validator:xsd/CSD002Aller.xsd")
@@ -39,6 +40,7 @@ public class ConsumerRoutebuilder extends RouteBuilder {
                 .to("cxf:bean:ttis.SMPCardServices")
                 .to("log:bus.interface.ttis.SMPCardServices.output?level=INFO&showBody=true")
         ;
+        */
 
     }
 }

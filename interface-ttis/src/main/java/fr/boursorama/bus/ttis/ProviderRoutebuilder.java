@@ -15,7 +15,7 @@ public class ProviderRoutebuilder extends RouteBuilder {
     @Override
     public void configure() throws Exception {
 
-
+/*
         from("cxf:bean:brs.SMPCardServices")
                 .to("log:bus.interface.ttis.SMPBusServices.input?level=INFO&showBody=true")
                 .transform().xpath("//messageSMPAllerXML/*")
@@ -36,7 +36,7 @@ public class ProviderRoutebuilder extends RouteBuilder {
                 .removeHeaders("*")
                 .to("log:bus.interface.SMPBusServices.output?level=INFO&showBody=true")
         ;
-
+*/
 
     }
 }
