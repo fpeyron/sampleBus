@@ -27,8 +27,6 @@ public class TtisProviderRoutebuilder extends RouteBuilder {
                 .setHeader("messageType").xpath("local-name(/*[1])", String.class)
                 .setHeader("messageVersion").xpath("/*[1]/serviceMetierPublicRetour/version/text()", String.class)
                 .setHeader("correlationId").xpath("/*[1]/serviceMetierPublicRetour/refExtDemSMP/text()")
-                //.setHeader(RabbitMQConstants.ROUTING_KEY).xpath("tokenize(/*[1]/serviceMetierPublicRetour/refExtDemSMP,';')[first()]")
-                //.setHeader(RabbitMQConstants.CORRELATIONID).xpath("tokenize(/*[1]/serviceMetierPublicRetour/refExtDemSMP,';')[last()]")
                 .process(new Processor() {
                     @Override
                     public void process(Exchange exchange) throws Exception {
@@ -46,15 +44,12 @@ public class TtisProviderRoutebuilder extends RouteBuilder {
                 .otherwise()
                 .throwException(new Exception("messageType is unknow"))
                 .end()
-                        //.to("xslt:xsl/brsMock.xsl")
-                        //.convertBodyTo(String.class)
-                //.log(LoggingLevel.INFO, "${header.messageType} : ${header.rabbitmq.ROUTING_KEY}:${header.rabbitmq.CORRELATIONID}")
                 .choice()
-                .when().simple("${header.rabbitmq.ROUTING_KEY} != null")
-                .to(ExchangePattern.InOnly, BrokerUtil.producer("ttis.consumer"))
+                    .when().simple("${header.rabbitmq.ROUTING_KEY} != null")
+                        .to(ExchangePattern.InOnly, BrokerUtil.producer("ttis.consumer"))
                         .endChoice()
-                .otherwise()
-                .to(ExchangePattern.InOnly, BrokerUtil.producer("ttis.producer"))
+                    .otherwise()
+                        .to(ExchangePattern.InOnly, BrokerUtil.producer("ttis.producer"))
                 .end()
                 .transform().constant("<gen:notifierResponse xmlns:gen=\"http://generic.ttis.bus.boursorama.fr/\"><messageSMPRetourXML /></gen:notifierResponse>")
                 .removeHeaders("*")

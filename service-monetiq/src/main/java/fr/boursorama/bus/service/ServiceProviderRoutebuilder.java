@@ -36,7 +36,10 @@ public class ServiceProviderRoutebuilder extends RouteBuilder {
         ;
 
         from("direct:callTtis")
-                .to(ExchangePattern.InOnly, BrokerUtil.producer("ttis.consumer"))
+                .removeHeaders("*", "debug.*")
+                .log(LoggingLevel.INFO, ">>> ${body}")
+                .to(ExchangePattern.InOut, BrokerUtil.producer("ttis.consumer"))
+                .log(LoggingLevel.INFO, "<<< ${body}")
         ;
 
     }
