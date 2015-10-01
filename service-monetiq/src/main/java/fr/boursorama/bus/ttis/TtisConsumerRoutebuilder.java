@@ -20,11 +20,8 @@ public class TtisConsumerRoutebuilder extends RouteBuilder {
     public void configure() throws Exception {
 
         from(BrokerUtil.consumer("ttis.service"))
-                //.onException(Exception.class)
-                //.to(ExchangePattern.InOnly, BrokerUtil.producer("ttis.service.fail"))
-                //.handled(true)
-                //.end()
-                .removeHeaders("*")
+                .errorHandler(deadLetterChannel(BrokerUtil.producer("ttis.service.fail")))
+                .removeHeaders("*", "debug.*")
                 .to(ExchangePattern.InOut, BrokerUtil.producer("ttis.consumer"))
                 .log(LoggingLevel.INFO, "<<< ${body}")
         ;
@@ -50,9 +47,9 @@ public class TtisConsumerRoutebuilder extends RouteBuilder {
                 .to("xslt:fr/boursorama/bus/ttis/xsl/internal2ttis.xsl")
                 .to("validator:fr/boursorama/bus/ttis/xsd/CSD002Aller.xsd")
                 .setBody().simple("<gen:activer xmlns:gen=\"http://generic.monetiq.evolan.sopra.com/\"><messageSMPAllerXML>${body}</messageSMPAllerXML></gen:activer>")
-                .setHeader("callback.sleep").constant(3000)
+                //.setHeader("callback.sleep").constant(3000)
                 .setHeader("callback.url").constant("http://localhost:8080/boursorama-bus-service/soap/brs.SMPCardServices")
-                .removeHeaders("*", "callback.*")
+                .removeHeaders("*", "debug.*")
                 .to("cxf:bean:ttis.SMPCardServices")
                 .to("log:bus.interface.ttis.SMPCardServices.output?level=DEBUG&showBody=true")
                 .log(LoggingLevel.INFO, ">> ${body}")
