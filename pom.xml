@@ -13,8 +13,6 @@
         <module>common-libs</module>
         <module>common-libs-emb</module>
         <module>mock-ttis</module>
-        <module>interface-ttis</module>
-        <module>interface-cis</module>
         <module>service-monetiq</module>
     </modules>
 
