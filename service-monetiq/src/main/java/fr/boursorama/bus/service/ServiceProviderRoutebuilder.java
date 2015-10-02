@@ -33,10 +33,12 @@ public class ServiceProviderRoutebuilder extends RouteBuilder {
                 .get("version")
                     .description("provider version")
                     .to("direct:version")
+
                 .get("{panId}/withdrawalTemporally")
                     .description("Get contract service detail")
                     .outType(WithdrawalTemporally.class)
                     .to("direct:getWithdrawalTemporally")
+
                 .put("{panId}/withdrawalTemporally")
                     .description("Update contract service")
                     .type(WithdrawalTemporally.class)
@@ -51,6 +53,7 @@ public class ServiceProviderRoutebuilder extends RouteBuilder {
 
 
         from("direct:getWithdrawalTemporally")
+                .setHeader("action").constant("getWithdrawalTemporally")
                 .process(new Processor() {
                     @Override
                     public void process(Exchange exchange) throws Exception {
@@ -67,6 +70,7 @@ public class ServiceProviderRoutebuilder extends RouteBuilder {
         DataFormat jaxb = new JaxbDataFormat();
 
         from("direct:putWithdrawalTemporally")
+                .setHeader("action").constant("putWithdrawalTemporally")
                 .process(new Processor() {
                     @Override
                     public void process(Exchange exchange) throws Exception {
@@ -91,15 +95,6 @@ public class ServiceProviderRoutebuilder extends RouteBuilder {
                 .setBody().constant(null)
         ;
 
-
-
-
-        from("direct:callTtis")
-                .removeHeaders("*", "debug.*")
-                .log(LoggingLevel.INFO, ">>> ${body}")
-                .to(ExchangePattern.InOut, BrokerUtil.producer("ttis.consumer"))
-                .log(LoggingLevel.INFO, "<<< ${body}")
-        ;
 
     }
 }
