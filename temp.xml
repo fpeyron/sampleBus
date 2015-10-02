@@ -1,0 +1,30 @@
+Appel WS Monext :
+        <?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://DefaultNamespace"
+                   xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+    <SOAP-ENV:Body>
+        <ns1:SetNiveauService>
+            <systemIdentifier xsi:type="xsd:string">WIZ_BOURSORAMA</systemIdentifier>
+            <password xsi:type="xsd:string">WsBoursorama!r20</password>
+            <CodeBanque xsi:type="xsd:string">40618</CodeBanque>
+            <NumCarte xsi:type="xsd:string">2000000000031883</NumCarte>
+            <NiveauService xsi:type="xsd:string">54AN</NiveauService>
+            <Column xsi:type="xsd:string">CRD_NUMBER_PK</Column>
+        </ns1:SetNiveauService>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+
+        Réponse :
+        <?xml version="1.0" encoding="utf-8"?> <soapenv:Envelope
+xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<soapenv:Body>
+    <ns1:SetNiveauServiceResponse xmlns:ns1="http://DefaultNamespace"
+                                  soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+        <SetNiveauServiceReturn xsi:type="xsd:string">&lt;MSG_RESPONSE&gt;&lt;SIGNONPS_RETURN_CODE&gt;0&lt;/SIGNONPS_RETURN_CODE&gt;&lt;SERVICE_RETURN_CODE&gt;2530&lt;/SERVICE_RETURN_CODE&gt;&lt;SIGNOFF_RETURN_CODE&gt;0&lt;/SIGNOFF_RETURN_CODE&gt;&lt;RETURN_CODE&gt;10&lt;/RETURN_CODE&gt;
+            &lt;/MSG_RESPONSE&gt;</SetNiveauServiceReturn>
+    </ns1:SetNiveauServiceResponse>
+</soapenv:Body>
+</soapenv:Envelope>

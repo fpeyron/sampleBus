@@ -18,17 +18,19 @@ public class ConsumerRoutebuilder extends RouteBuilder {
 
         from("cxf:bean:ttis.SMPCardServices")
                 .to("log:ttis.SMPCardServices.input?level=DEBUG&showBody=true")
+                .log(LoggingLevel.INFO, "ttis.SMPCardServices", ">> ${body}")
                 .transform().xpath("//messageSMPAllerXML/*")
                 .convertBodyTo(String.class)
                 .to("validator:xsd/CSD002Aller.xsd")
                 .to(ExchangePattern.InOnly, "seda:response")
                 .to("xslt:xsl/ttisMock.xsl")
                 .to("log:ttis.SMPCardServices.output?level=DEBUG&showBody=true")
+                .log(LoggingLevel.INFO, "ttis.SMPCardServices", "<< ${body}")
         ;
 
         from("seda:response")
                 .to("xslt:xsl/brsMock.xsl")
-                .removeHeaders("*", "callback.*")
+                .removeHeaders("*", "debug.*")
                 .choice()
                     .when(simple("${header.debug.url}"))
                     .log(LoggingLevel.DEBUG, "${header.debug.url}")
@@ -42,7 +44,9 @@ public class ConsumerRoutebuilder extends RouteBuilder {
                     .endChoice()
                     .otherwise()
                 .end()
+                .log(LoggingLevel.INFO, "brs.SMPCardServices", ">> ${body}")
                 .to(ExchangePattern.InOut, "cxf:bean:brs.SMPCardServices")
+                .log(LoggingLevel.INFO, "brs.SMPCardServices", "<< ${body}")
         ;
     }
 }
