@@ -8,6 +8,7 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!--
 	<bean class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer" id="placeholderConfigurer">
 		<property name="locations">
 			<list>
@@ -21,5 +22,5 @@
     <camel:camelContext id="cisContext" streamCache="true">
 		<camel:routeBuilder ref="cisConsumerRoutebuilder" />
 	</camel:camelContext>
-	
+	-->
 </beans>

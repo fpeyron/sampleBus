@@ -6,13 +6,13 @@ import org.apache.camel.ExchangePattern;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.infinispan.InfinispanConstants;
 import org.apache.camel.converter.jaxb.JaxbDataFormat;
 import org.apache.camel.model.rest.RestBindingMode;
-import org.apache.camel.processor.aggregate.AggregationStrategy;
 import org.apache.camel.spi.DataFormat;
 import org.springframework.stereotype.Component;
 
-import java.util.Calendar;
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -26,23 +26,24 @@ public class ServiceProviderRoutebuilder extends RouteBuilder {
 
         restConfiguration().component("servlet")
                 .bindingMode(RestBindingMode.json)
-                .dataFormatProperty("prettyPrint", "true")
+                //.dataFormatProperty("prettyPrint", "true")
         ;
 
-        rest("/bankingCard")
+        rest("/1.0/monetiqService")
                 .get("version")
                     .description("provider version")
                     .to("direct:version")
 
-                .get("{panId}/withdrawalTemporally")
+                .get("{panId}/withdrawalTemporary")
                     .description("Get contract service detail")
-                    .outType(WithdrawalTemporally.class)
+                    .outType(WithdrawalTemporary.class)
                     .to("direct:getWithdrawalTemporally")
 
-                .put("{panId}/withdrawalTemporally")
+                .put("{panId}/withdrawalTemporary")
                     .description("Update contract service")
-                    .type(WithdrawalTemporally.class)
-                    //.outType(WithdrawalTemporally.class)
+                .type(WithdrawalTemporary.class)
+                        .outType(WithdrawalTemporary.class)
+                        //.outType(WithdrawalTemporary.class)
                     .to("direct:putWithdrawalTemporally")
         ;
 
@@ -57,12 +58,12 @@ public class ServiceProviderRoutebuilder extends RouteBuilder {
                 .process(new Processor() {
                     @Override
                     public void process(Exchange exchange) throws Exception {
-                        WithdrawalTemporally withdrawalTemporally = new WithdrawalTemporally();
-                        withdrawalTemporally.setPanId(exchange.getIn().getHeader("panId", Long.class));
-                        withdrawalTemporally.setPaymentCode("PLAFOND005");
-                        withdrawalTemporally.setCashAmount(new Long(3000));
-                        withdrawalTemporally.setDueDate(new Date());
-                        exchange.getIn().setBody(withdrawalTemporally);
+                        WithdrawalTemporary withdrawalTemporary = new WithdrawalTemporary();
+                        withdrawalTemporary.setPanId(exchange.getIn().getHeader("panId", Long.class));
+                        withdrawalTemporary.setPaymentCode("PLAFOND005");
+                        withdrawalTemporary.setCashAmount(new Long(3000));
+                        withdrawalTemporary.setDueDate(new Date());
+                        exchange.getIn().setBody(withdrawalTemporary);
 
                     }
                 })
@@ -84,16 +85,23 @@ public class ServiceProviderRoutebuilder extends RouteBuilder {
                             throw new InvalidRequestException("source as header is mandatory");
                         }
 
-                        exchange.getIn().getBody(WithdrawalTemporally.class).setPanId(exchange.getIn().getHeader("panId", Long.class));
-                        exchange.getIn().getBody(WithdrawalTemporally.class).setContactId(exchange.getIn().getHeader("contactid", Long.class));
-                        exchange.getIn().getBody(WithdrawalTemporally.class).setSource(exchange.getIn().getHeader("source", String.class));
+                        exchange.getIn().getBody(WithdrawalTemporary.class).setPanId(exchange.getIn().getHeader("panId", Long.class));
+                        exchange.getIn().getBody(WithdrawalTemporary.class).setContactId(exchange.getIn().getHeader("contactid", Long.class));
+                        exchange.getIn().getBody(WithdrawalTemporary.class).setSource(exchange.getIn().getHeader("source", String.class));
                     }
                 })
                         //.marshal(jaxb)
                 .log(LoggingLevel.INFO, "${body} \n${headers}")
+
+                .setHeader(InfinispanConstants.KEY, simple("service-monetiq-${header.panId}"))
+                .setHeader(InfinispanConstants.VALUE, constant(""))
+                .setHeader(InfinispanConstants.OPERATION, constant(InfinispanConstants.PUT))
+                .to("infinispan://localhost?cacheContainer=#cacheManager")
+
                 .to(ExchangePattern.InOnly, BrokerUtil.producer("ttis.consumer"))
                 .setBody().constant(null)
         ;
+
 
 
     }

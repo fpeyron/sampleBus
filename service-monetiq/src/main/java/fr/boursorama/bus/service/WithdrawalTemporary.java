@@ -11,9 +11,9 @@ import java.util.Date;
 /**
  * Created by fpeyron on 02/10/2015.
  */
-@XmlRootElement(name="withdrawalTemporally")
+@XmlRootElement(name="withdrawalTemporary")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class WithdrawalTemporally {
+public class WithdrawalTemporary {
 
     @JsonIgnore
     private Long panId;

@@ -5,6 +5,8 @@ package fr.boursorama.bus.service;
  */
 public class InvalidRequestException extends RuntimeException {
 
+    private String code;
+
     public InvalidRequestException(String message) {
         super(message);
     }
