@@ -8,11 +8,11 @@ import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.infinispan.InfinispanConstants;
 import org.apache.camel.converter.jaxb.JaxbDataFormat;
+import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.model.rest.RestBindingMode;
 import org.apache.camel.spi.DataFormat;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -26,25 +26,23 @@ public class ServiceProviderRoutebuilder extends RouteBuilder {
 
         restConfiguration().component("servlet")
                 .bindingMode(RestBindingMode.json)
-                //.dataFormatProperty("prettyPrint", "true")
+                .setSkipBindingOnErrorCode(true)
+                //.dataFormatProperty("prettyPrint", "json.out")
         ;
 
         rest("/1.0/monetiqService")
                 .get("version")
-                    .description("provider version")
-                    .to("direct:version")
-
-                .get("{panId}/withdrawalTemporary")
-                    .description("Get contract service detail")
-                    .outType(WithdrawalTemporary.class)
-                    .to("direct:getWithdrawalTemporally")
-
-                .put("{panId}/withdrawalTemporary")
-                    .description("Update contract service")
-                .type(WithdrawalTemporary.class)
-                        .outType(WithdrawalTemporary.class)
-                        //.outType(WithdrawalTemporary.class)
-                    .to("direct:putWithdrawalTemporally")
+                .description("provider version")
+                .to("direct:version")
+                .get("bankCards/{panId}")
+                .description("Get bankCard detail")
+                .outType(BankCard.class)
+                .to("direct:getBankCard")
+                .put("bankCards/{panId}")
+                .description("Update bankCard service")
+                .type(BankCard.class)
+                    //.outType(WithdrawalTemporary.class)
+                .to("direct:putBankCard")
         ;
 
 
@@ -53,25 +51,35 @@ public class ServiceProviderRoutebuilder extends RouteBuilder {
         ;
 
 
-        from("direct:getWithdrawalTemporally")
-                .setHeader("action").constant("getWithdrawalTemporally")
+        from("direct:getBankCard")
+                .setHeader("action").constant("getBankCard")
                 .process(new Processor() {
                     @Override
                     public void process(Exchange exchange) throws Exception {
-                        WithdrawalTemporary withdrawalTemporary = new WithdrawalTemporary();
-                        withdrawalTemporary.setPanId(exchange.getIn().getHeader("panId", Long.class));
-                        withdrawalTemporary.setPaymentCode("PLAFOND005");
-                        withdrawalTemporary.setCashAmount(new Long(3000));
-                        withdrawalTemporary.setDueDate(new Date());
-                        exchange.getIn().setBody(withdrawalTemporary);
-
+                        BankCard bankCard = new BankCard();
+                        bankCard.setPanId(exchange.getIn().getHeader("panId", Long.class));
+                        bankCard.setActiveSupport(true);
+                        bankCard.setActiveSupportNfc(false);
+                        bankCard.setPermanentCeilingCashCode("PLAFONDCASH-001");
+                        bankCard.setPermanentCeilingPaymentCode("PLAFONDPAYM-001");
+                        bankCard.setTemporaryCeilingDate(new Date());
+                        bankCard.setTemporaryCeilingCashCode("PLAFONDCASH-002");
+                        bankCard.setTemporaryCeilingPaymentCode("PLAFONDPAYM-002");
+                        exchange.getIn().setBody(bankCard);
                     }
                 })
         ;
-        DataFormat jaxb = new JaxbDataFormat();
+        //DataFormat jaxb = new JaxbDataFormat();
 
-        from("direct:putWithdrawalTemporally")
-                .setHeader("action").constant("putWithdrawalTemporally")
+        from("direct:putBankCard")
+                .onException(InvalidRequestException.class)
+                    .handled(true)
+                    .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(400))
+                    .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
+                    .setBody().simple("{ \"code\": \"${header.CamelHttpResponseCode}\" , \"message\": \"${exception.message}\" }")
+                .end()
+                .setHeader("action").constant("putBankCard")
+                // validation
                 .process(new Processor() {
                     @Override
                     public void process(Exchange exchange) throws Exception {
@@ -85,23 +93,36 @@ public class ServiceProviderRoutebuilder extends RouteBuilder {
                             throw new InvalidRequestException("source as header is mandatory");
                         }
 
-                        exchange.getIn().getBody(WithdrawalTemporary.class).setPanId(exchange.getIn().getHeader("panId", Long.class));
-                        exchange.getIn().getBody(WithdrawalTemporary.class).setContactId(exchange.getIn().getHeader("contactid", Long.class));
-                        exchange.getIn().getBody(WithdrawalTemporary.class).setSource(exchange.getIn().getHeader("source", String.class));
+                        exchange.getIn().getBody(BankCard.class).setPanId(exchange.getIn().getHeader("panId", Long.class));
+                        exchange.getIn().getBody(BankCard.class).setContactId(exchange.getIn().getHeader("contactid", Long.class));
                     }
                 })
-                        //.marshal(jaxb)
                 .log(LoggingLevel.INFO, "${body} \n${headers}")
 
-                .setHeader(InfinispanConstants.KEY, simple("service-monetiq-${header.panId}"))
-                .setHeader(InfinispanConstants.VALUE, constant(""))
-                .setHeader(InfinispanConstants.OPERATION, constant(InfinispanConstants.PUT))
-                .to("infinispan://localhost?cacheContainer=#cacheManager")
-
-                .to(ExchangePattern.InOnly, BrokerUtil.producer("ttis.consumer"))
+                .choice()
+                .when().simple("${body.activeSupportNfc} != null")
+                .to("direct:updateSupportNfc")
+                .end()
                 .setBody().constant(null)
         ;
 
+
+        from("direct:updateSupportNfc")
+                .errorHandler(noErrorHandler())
+                .setHeader("action").constant("updateSupportNfc")
+                .setHeader(InfinispanConstants.KEY, simple("monetiq-${header.action}-${header.panId}"))
+                .setHeader(InfinispanConstants.OPERATION, constant(InfinispanConstants.GET))
+                .to("infinispan://localhost?cacheContainer=#cacheManager")
+                .choice()
+                .when().simple("${header.CamelInfinispanOperationResult} != null")
+                .throwException(new InvalidRequestException("updateSupportNfc en cours"))
+                .otherwise()
+                .setHeader(InfinispanConstants.VALUE).simple(">>${exchangeId}")
+                .setHeader(InfinispanConstants.OPERATION, constant(InfinispanConstants.PUT))
+                .to("infinispan://localhost?cacheContainer=#cacheManager")
+                .end()
+                .to(ExchangePattern.InOnly, BrokerUtil.producer("ttis.consumer"))
+        ;
 
 
     }
