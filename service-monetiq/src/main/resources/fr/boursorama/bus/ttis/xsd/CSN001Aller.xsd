@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Created with Liquid XML Studio 6.1.18.0 - FREE Community Edition (http://www.liquid-technologies.com)-->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="CSN001Aller">
+     <xs:complexType>
+       <xs:all>
+         <xs:element name="serviceMetierPublicAller">
+          <xs:complexType>
+            <xs:all>
+              <xs:element minOccurs="0" name="refExtEmetteur" type="xs:string" />
+              <xs:element name="idService" type="xs:string" />
+              <xs:element minOccurs="0" name="version" type="xs:string" />
+              <xs:element name="userid" type="xs:string" />
+              <xs:element minOccurs="0" name="codLang" type="xs:string" />
+              <xs:element name="refExtDemSMP" type="xs:string" />
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" name="codDemandeBO" type="xs:string" />
+        <xs:element minOccurs="0" name="numPan" type="xs:string" />
+        <xs:element minOccurs="0" name="datFinValidite" type="xs:string" />
+        <xs:element minOccurs="0" name="datRetourBO" type="xs:string" />
+        <xs:element minOccurs="0" name="heureRetourBO" type="xs:string" />
+        <xs:element minOccurs="0" name="codErreurBO" type="xs:string" />
+        <xs:element minOccurs="0" name="libErreurBO" type="xs:string" />
+        <xs:element minOccurs="0" name="codActionSuppDist" type="xs:string" />
+        <xs:element minOccurs="0" name="libActionSuppDist" type="xs:string" />
+        <xs:element minOccurs="0" name="codCanalAcquisition" type="xs:string" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

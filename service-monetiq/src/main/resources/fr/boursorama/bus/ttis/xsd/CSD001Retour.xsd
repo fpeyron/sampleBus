@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Created with Liquid XML Studio 6.1.18.0 - FREE Community Edition (http://www.liquid-technologies.com)-->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="CSD001Retour">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="serviceMetierPublicRetour">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="codRetour" type="xs:string" />
+              <xs:element name="refExtDemSMP" type="xs:string" />
+              <xs:element name="tempsReponse">
+                <xs:simpleType>
+                  <xs:restriction base="xs:int">
+                    <xs:totalDigits value="6" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" name="listOfErreur">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0">
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="erreur">
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element name="codErreur" type="xs:string" />
+                          <xs:element name="libErreur" type="xs:string" />
+                        </xs:all>
+                        <xs:attribute name="index" type="xs:string" use="optional" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

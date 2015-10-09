@@ -6,6 +6,7 @@ import org.apache.camel.ExchangePattern;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.component.rabbitmq.RabbitMQConstants;
 import org.apache.camel.processor.aggregate.AggregationStrategy;
 import org.springframework.stereotype.Component;
@@ -57,11 +58,14 @@ public class TtisConsumerRoutebuilder extends RouteBuilder {
                 .to("validator:fr/boursorama/bus/ttis/xsd/CSD002Aller.xsd")
                 .setBody().simple("<gen:activer xmlns:gen=\"http://generic.monetiq.evolan.sopra.com/\"><messageSMPAllerXML>${body}</messageSMPAllerXML></gen:activer>")
                 //.setHeader("callback.sleep").constant(3000)
-                .setHeader("debug.url").constant("http://localhost:8080/boursorama-bus-service/soap/brs.SMPCardServices")
+                .setHeader("debug.url").constant("http://localhost:7080/boursorama-bus-service/soap/brs.SMPCardServices")
                 .removeHeaders("*", "debug.*")
+                //.setHeader(CxfConstants.OPERATION_NAMESPACE).constant("http://generic.monetiq.evolan.sopra.com/")
+                //.setHeader(CxfConstants.OPERATION_NAME).constant("activer")
+                .log(LoggingLevel.INFO, ">>${header." + CxfConstants.OPERATION_NAME + "}")
                 .to("cxf:bean:ttis.SMPCardServices")
                 .to("log:bus.interface.ttis.SMPCardServices.output?level=DEBUG&showBody=true")
-                .log(LoggingLevel.INFO, ">> ${body}")
+                .log(LoggingLevel.INFO, "<< ${body}")
         ;
 
 
