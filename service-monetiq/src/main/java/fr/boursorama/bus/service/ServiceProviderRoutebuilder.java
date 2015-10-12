@@ -27,27 +27,28 @@ public class ServiceProviderRoutebuilder extends RouteBuilder {
         restConfiguration().component("servlet")
                 .bindingMode(RestBindingMode.json)
                 .setSkipBindingOnErrorCode(true)
-                //.dataFormatProperty("prettyPrint", "json.out")
         ;
 
         rest("/1.0/monetiqService")
                 .get("version")
-                .description("provider version")
-                .to("direct:version")
+                    .description("provider version")
+                    .to("direct:version")
                 .get("bankCards/{panId}")
-                .description("Get bankCard detail")
-                .outType(BankCard.class)
-                .to("direct:getBankCard")
+                    .description("Get bankCard detail")
+                    .outType(BankCard.class)
+                    .to("direct:getBankCard")
+
                 .put("bankCards/{panId}")
-                .description("Update bankCard service")
-                .type(BankCard.class)
+                    .description("Update bankCard service")
+                    .type(BankCard.class)
                     //.outType(WithdrawalTemporary.class)
-                .to("direct:putBankCard")
+                    .to("direct:putBankCard")
         ;
 
 
         from("direct:version")
-                .setBody().constant("version 1.2.3")
+                .setBody().simple("${properties:application.version}")
+                //.setBody().constant("${properties:version}")
         ;
 
 

@@ -20,8 +20,8 @@ public class InfinispanConfig {
     public DefaultCacheManager cacheManager() {
         DefaultCacheManager cacheManager = new DefaultCacheManager(true);
 
-        Cache c = cacheManager.getCache();
-        c.put("hello", "world");
+        //Cache c = cacheManager.getCache();
+        //c.put("hello", "world");
 
         return cacheManager;
     }

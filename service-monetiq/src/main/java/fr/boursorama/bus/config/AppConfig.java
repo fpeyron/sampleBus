@@ -11,7 +11,6 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
  */
 @Configuration
 @ComponentScan("fr.boursorama.bus")
-@PropertySource("classpath:application.properties")
 public class AppConfig {
 
     @Bean

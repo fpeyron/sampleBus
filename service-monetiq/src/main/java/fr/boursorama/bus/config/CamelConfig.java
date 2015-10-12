@@ -26,6 +26,9 @@ public class CamelConfig extends CamelConfiguration {
 
         // enable performance metrics: http://www.davsclaus.com/2014/09/more-metrics-in-apache-camel-214.html
         camelContext.addRoutePolicyFactory(new MetricsRoutePolicyFactory());
+
+        // set StreamCaching to up
+        camelContext.setStreamCaching(true);
         super.setupCamelContext(camelContext);
     }
 
