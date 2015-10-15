@@ -51,7 +51,7 @@ public class TtisProviderRoutebuilder extends RouteBuilder {
                 //    .otherwise()
                         .to(ExchangePattern.InOnly, BrokerUtil.producer("ttis.producer"))
                 .end()
-                .transform().constant("<gen:notifierResponse xmlns:gen=\"http://generic.ttis.bus.boursorama.fr/\"><messageSMPRetourXML /></gen:notifierResponse>")
+                .transform().constant("<gen:notifierResponse xmlns:gen=\"http://generic.transactis.bus.boursorama.fr/\"><messageSMPRetourXML><monTest /></messageSMPRetourXML></gen:notifierResponse>")
                 .removeHeaders("*")
                 .to("log:bus.interface.SMPBusServices.output?level=DEBUG&showBody=true")
                 .log(LoggingLevel.INFO, ">> ${body}")

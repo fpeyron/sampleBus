@@ -4,7 +4,7 @@
 
 
     <xsl:template match="/CSD002Aller">
-        <gen:notifier xmlns:gen="http://generic.ttis.bus.boursorama.fr/">
+        <gen:notifier xmlns:gen="http://generic.transactis.bus.boursorama.fr/">
             <messageSMPAllerXML>
                 <CSD002Retour>
                     <xsl:element name="serviceMetierPublicRetour">

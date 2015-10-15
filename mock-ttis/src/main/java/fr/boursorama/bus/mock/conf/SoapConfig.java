@@ -2,6 +2,7 @@ package fr.boursorama.bus.mock.conf;
 
 import org.apache.camel.component.cxf.CxfEndpoint;
 import org.apache.cxf.Bus;
+import org.apache.cxf.endpoint.EndpointImpl;
 import org.apache.cxf.transport.servlet.CXFServlet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
@@ -19,7 +20,7 @@ import java.util.Map;
 
 
 @Configuration
-@ImportResource({"classpath:META-INF/cxf/cxf.xml"})
+@ImportResource({"classpath:META-INF/cxf/cxf.xml", "classpath:cxf/ttis-cxf-context.xml"})
 public class SoapConfig {
 
     @Autowired
@@ -30,14 +31,14 @@ public class SoapConfig {
         CXFServlet servlet = new CXFServlet();
         return new ServletRegistrationBean(servlet, "/soap/*");
     }
-
+/*
     @Bean(name = "ttis.SMPCardServices")
     public CxfEndpoint ttisSMPCardServices() {
         CxfEndpoint endpoint = new CxfEndpoint();
         endpoint.setBus(bus);
         endpoint.setEndpointName(new QName("http://generic.monetiq.evolan.sopra.com/", "SMPEvolanPort"));
         endpoint.setServiceName(new QName("http://generic.monetiq.evolan.sopra.com/", "SMPCardServices"));
-        endpoint.setServiceClass(this.getClass());
+        //endpoint.setServiceClass(this.getClass());
         endpoint.setWsdlURL("wsdl/ttis.SMPCardServices.wsdl");
         endpoint.setAddress("/ttis.SMPCardServices");
         Map<String, Object> properties = new HashMap<String, Object>();
@@ -58,7 +59,7 @@ public class SoapConfig {
         endpoint.setEndpointName(new QName("http://generic.ttis.bus.boursorama.fr/", "SMPEvolanPort"));
         endpoint.setServiceName(new QName("http://generic.ttis.bus.boursorama.fr/", "SMPCardServices"));
         endpoint.setWsdlURL("wsdl/brs.SMPCardServices.wsdl");
-        endpoint.setAddress("http://localhost:8080/boursorama-bus-ttis/soap/brs.SMPCardServices");
+        endpoint.setAddress("http://localhost:7080/soap/brs.SMPCardServices");
         endpoint.setServiceClass(this.getClass());
         Map<String, Object> properties = new HashMap<String, Object>();
         endpoint.setProperties(properties);
@@ -69,4 +70,5 @@ public class SoapConfig {
 
         return endpoint;
     }
+    */
 }

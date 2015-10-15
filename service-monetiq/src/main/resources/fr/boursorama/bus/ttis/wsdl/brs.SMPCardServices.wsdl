@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
              xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-             xmlns:tns="http://generic.ttis.bus.boursorama.fr/"
+             xmlns:tns="http://generic.transactis.bus.boursorama.fr/"
              xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
              name="SMPCardServices"
-             targetNamespace="http://generic.ttis.bus.boursorama.fr/">
+             targetNamespace="http://generic.transactis.bus.boursorama.fr/">
 
     <types>
         <xsd:schema attributeFormDefault="unqualified" elementFormDefault="unqualified"
-                    targetNamespace="http://generic.ttis.bus.boursorama.fr/">
+                    targetNamespace="http://generic.transactis.bus.boursorama.fr/">
 
             <xsd:element name="notifier" type="tns:notifier"/>
             <xsd:element name="notifierResponse" type="tns:notifierResponse"/>
@@ -28,10 +28,10 @@
             </xsd:complexType>
             <xsd:complexType name="notifierResponse">
                 <xsd:sequence>
-                    <xsd:element name="messageSMPRetourXML" minOccurs="0" maxOccurs="1">
+                    <xsd:element name="messageSMPRetourXML" minOccurs="1" maxOccurs="1">
                         <xsd:complexType>
                             <xsd:sequence>
-                                <xsd:any maxOccurs="1" minOccurs="0" processContents="lax"/>
+                                <xsd:any maxOccurs="1" minOccurs="1" processContents="lax"/>
                             </xsd:sequence>
                         </xsd:complexType>
                     </xsd:element>
@@ -52,9 +52,9 @@
     <portType name="SMPEvolanFacadeDelegate">
         <operation name="notifier">
             <input message="tns:notifier"
-                   wsam:Action="http://generic.ttis.bus.boursorama.fr/SMPEvolanFacadeDelegate/notifierRequest"/>
+                   wsam:Action="http://generic.transactis.bus.boursorama.fr/SMPEvolanFacadeDelegate/notifierRequest"/>
             <output message="tns:notifierResponse"
-                    wsam:Action="http://generic.ttis.bus.boursoram.fr/SMPEvolanFacadeDelegate/notifierResponse"/>
+                    wsam:Action="http://generic.transactis.bus.boursoram.fr/SMPEvolanFacadeDelegate/notifierResponse"/>
         </operation>
     </portType>
     <binding name="SMPEvolanPortBinding" type="tns:SMPEvolanFacadeDelegate">
@@ -62,10 +62,10 @@
         <operation name="notifier">
             <soap:operation soapAction=""/>
             <input>
-                <soap:body namespace="http://generic.ttis.bus.boursorama.fr/" use="literal"/>
+                <soap:body namespace="http://generic.transactis.bus.boursorama.fr/" use="literal"/>
             </input>
             <output>
-                <soap:body namespace="http://generic.ttis.bus.boursorama.fr/" use="literal"/>
+                <soap:body namespace="http://generic.transactis.bus.boursorama.fr/" use="literal"/>
             </output>
         </operation>
     </binding>

@@ -3,7 +3,7 @@
     <xsl:output method="xml" indent="yes" encoding="UTF-8" omit-xml-declaration="yes"/>
 
     <xsl:template match="/CSD002Retour">
-        <gen:notifierResponse xmlns:gen="http://generic.ttis.bus.boursorama.fr/">
+        <gen:notifierResponse xmlns:gen="http://generic.transactis.bus.boursorama.fr/">
             <messageSMPRetourXML />
         </gen:notifierResponse>
     </xsl:template>

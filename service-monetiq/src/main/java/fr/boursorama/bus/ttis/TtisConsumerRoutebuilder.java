@@ -58,7 +58,7 @@ public class TtisConsumerRoutebuilder extends RouteBuilder {
                 .to("validator:fr/boursorama/bus/ttis/xsd/CSD002Aller.xsd")
                 .setBody().simple("<gen:activer xmlns:gen=\"http://generic.monetiq.evolan.sopra.com/\"><messageSMPAllerXML>${body}</messageSMPAllerXML></gen:activer>")
                 //.setHeader("callback.sleep").constant(3000)
-                .setHeader("debug.url").constant("http://localhost:7080/boursorama-bus-service/soap/brs.SMPCardServices")
+                //.setHeader("debug.url").constant("http://localhost:7080/soap/brs.SMPCardServices")
                 .removeHeaders("*", "debug.*")
                 //.setHeader(CxfConstants.OPERATION_NAMESPACE).constant("http://generic.monetiq.evolan.sopra.com/")
                 //.setHeader(CxfConstants.OPERATION_NAME).constant("activer")

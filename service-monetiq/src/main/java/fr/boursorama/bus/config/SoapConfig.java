@@ -19,7 +19,7 @@ import java.util.Map;
 
 
 @Configuration
-@ImportResource({"classpath:META-INF/cxf/cxf.xml"})
+@ImportResource({"classpath:META-INF/cxf/cxf.xml", "classpath:cxf/ttis-cxf-context.xml"})
 public class SoapConfig {
 
     @Autowired
@@ -30,7 +30,7 @@ public class SoapConfig {
         CXFServlet servlet = new CXFServlet();
         return new ServletRegistrationBean(servlet, "/soap/*");
     }
-
+/*
     @Bean(name = "ttis.SMPCardServices")
     public CxfEndpoint ttisSMPCardServices() {
         CxfEndpoint endpoint = new CxfEndpoint();
@@ -69,4 +69,5 @@ public class SoapConfig {
 
         return endpoint;
     }
+    */
 }
